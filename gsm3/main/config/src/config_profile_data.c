@@ -1,0 +1,693 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/*==================================================================================================
+
+    MODULE NAME : config_profile_data.c
+
+    GENERAL DESCRIPTION
+        This file contains runtime configuration database file.
+        
+    NEWGEN Telecom Confidential Proprietary
+    (c) Copyright 2002 by NEWGEN Telecom Corp. All Rights Reserved.
+====================================================================================================
+
+    Revision History
+   
+    Modification                  Tracking
+    Date         Author           Number      Description of changes
+    ----------   --------------   ---------   ------------------------------------------------------
+    11/02/2002   Stanley Park     cr20195     Initial file creation.
+    11/24/2003   Stanley Park     cr21829     Profile feature per MCC/MNC
+
+====================================================================================================
+    INCLUDE FILES
+==================================================================================================*/
+#include "config_manager.h"
+
+#include "SP_include.h"
+#include "SP_obigo_netacnt_def.h"
+#include "SP_worldtime.h"
+#include "rm_include.h"
+#include "config_profile.h"
+
+//const unsigned int     config_profile_magic = CONFIG_PROFILE_MAGIC_NUMBER;
+
+/*==================================================================================================
+    Master MCC and profile matching table
+==================================================================================================*/
+
+extern const CONFIG_PROFILE_NETACNT_DATA_T  config_profile_netacnt_default[];
+extern const CONFIG_PROFILE_NETACNT_DATA_T  config_profile_netacnt_china[];
+extern const CONFIG_PROFILE_NETACNT_DATA_T  config_profile_netacnt_hongkong[];
+extern const CONFIG_PROFILE_NETACNT_DATA_T  config_profile_netacnt_thai[];
+extern const CONFIG_PROFILE_NETACNT_DATA_T  config_profile_netacnt_ME[];
+extern const CONFIG_PROFILE_NETACNT_DATA_T  config_profile_netacnt_africa602[];
+
+/*==================================================================================================
+    Following section is for China Market
+    { 0x0046000F,  "CHINAMOBILE",  "CMCC",    GSM900 },
+    { 0x0046001F,  "CHN-CUGSM",    "CU-GSM",  GSM900 },
+==================================================================================================*/
+const CONFIG_PROFILE_GENERAL_DATA_T  config_general_table_default= {
+    /* #of lang,  lang list, 
+     * city, frequency, #of entry, address of entry */
+    RM_LANG_ENG,
+    { 
+        CONFIG_MGR_FLAG_ON,            //  RM_LANG_ENG        = 0,    /* default value */
+        CONFIG_MGR_FLAG_ON,          //  RM_LANG_CHN        = 1,
+        CONFIG_MGR_FLAG_ON,          //  RM_LANG_TCHN       = 2,
+        CONFIG_MGR_FLAG_ON,          //  RM_LANG_THAI       = 3,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_VIETNAMESE = 4,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_ARABIC     = 5,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_RUSSIAN    = 6,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_GERMAN     = 7,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_FRENCH     = 8,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_ITALIAN    = 9,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_PORTUGUESE = 10,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_SPANISH    = 11,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_POLISH     = 12,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_HUNGARIAN  = 13,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_DUTCH      = 14,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_SWEDISH    = 15,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_DANISH     = 16,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_FINNISH    = 17,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_NORWEGIAN  = 18,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_GREEK      = 19,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_TURKISH    = 20,
+    },
+    WORLDTIME_CITY_BEIJING, 50, 3,  &config_profile_netacnt_default[0]
+};
+
+const CONFIG_PROFILE_NETACNT_DATA_T  config_profile_netacnt_default[ 3 ] = {
+    /* 
+       MNC
+       Network Attribute - WAP, MMS and JAVA capability
+       URL - Net Account name, homepage title, homepage url,  MMSC URL,  JAVA URL
+       WAP, MMS, JAVA network - 
+             bearer type, connection type, 
+             IP addr, dns1, dns 2, 
+             port number, apn, 
+             dial string, 
+             gprs uid, gprs passwd, csd user id, csd passwd 
+    */
+    {
+        0x0000,   CONFIG_PROFILE_ATTRIBUTE_WAP | CONFIG_PROFILE_ATTRIBUTE_MMS, /* PROFILE1 */
+        {   "PROFILE1", "PROFILE1",                   "",
+            "",         ""                              },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "",                            
+            "", "", "", "" }
+    },
+    {
+        0x0000,   CONFIG_PROFILE_ATTRIBUTE_WAP | CONFIG_PROFILE_ATTRIBUTE_MMS, /* PROFILE2 */
+        {   "PROFILE2", "PROFILE2",                   "",
+            "",         ""                              },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "",                            
+            "", "", "", "" }
+    },
+    {
+        0x0000,   CONFIG_PROFILE_ATTRIBUTE_WAP | CONFIG_PROFILE_ATTRIBUTE_MMS, /* PROFILE3 */
+        {   "PROFILE3", "PROFILE3",                   "",
+            "",         ""                              },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "",                            
+            "", "", "", "" }
+    }
+};
+
+const CONFIG_PROFILE_GENERAL_DATA_T  config_general_table_china = {
+    /* #of lang,  lang list, 
+     * city, frequency, #of entry, address of entry */
+    RM_LANG_CHN,
+    {
+        CONFIG_MGR_FLAG_ON,            //  RM_LANG_ENG        = 0,    /* default value */
+        CONFIG_MGR_FLAG_ON,          //  RM_LANG_CHN        = 1,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_TCHN       = 2,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_THAI       = 3,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_VIETNAMESE = 4,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_ARABIC     = 5,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_RUSSIAN    = 6,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_GERMAN     = 7,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_FRENCH     = 8,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_ITALIAN    = 9,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_PORTUGUESE = 10,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_SPANISH    = 11,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_POLISH     = 12,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_HUNGARIAN  = 13,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_DUTCH      = 14,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_SWEDISH    = 15,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_DANISH     = 16,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_FINNISH    = 17,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_NORWEGIAN  = 18,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_GREEK      = 19,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_TURKISH    = 20,
+    },
+    WORLDTIME_CITY_BEIJING, 50, 2,  &config_profile_netacnt_china[0]
+};
+
+const CONFIG_PROFILE_NETACNT_DATA_T  config_profile_netacnt_china[ 2 ] = {
+    /* 
+       MNC
+       Network Attribute - WAP, MMS and JAVA capability
+       URL - Net Account name, homepage title, homepage url,  MMSC URL,  JAVA URL
+       WAP, MMS, JAVA network - 
+             bearer type, connection type, 
+             IP addr, dns1, dns 2, 
+             port number, apn, 
+             dial string, 
+             gprs uid, gprs passwd, csd user id, csd passwd 
+    */
+    {
+        0x0000,   CONFIG_PROFILE_ATTRIBUTE_WAP | CONFIG_PROFILE_ATTRIBUTE_MMS, /* CMCC */
+        {   "CMCC", "monternet", "http://wap.monternet.com",
+            "mmsc.monternet.com",         ""                              },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 10, 0, 0, 172 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "cmwap",
+            "17266",                            
+            "wap", "wap", "wap", "wap" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 10, 0, 0, 172 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "cmwap",
+            "17266",                            
+            "wap", "wap", "wap", "wap" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 10, 0, 0, 172 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "cmwap",
+            "17266",                            
+            "wap", "wap", "wap", "wap" }
+    },
+    {
+        0x0010,   CONFIG_PROFILE_ATTRIBUTE_WAP, /* CU */
+        {   "CU", "CU homepage", "http://211.95.65.6",
+            "",         ""                              },
+        {   NETACNT_BEARER_CSD, NETACNT_WSP_CO,                
+            { 211, 95, 65, 100 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "165",                            
+            "wap", "wap", "wap", "wap" },
+        {   NETACNT_BEARER_CSD, NETACNT_WSP_CO,                
+            { 211, 95, 65, 100 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "165",                            
+            "wap", "wap", "wap", "wap" },
+        {   NETACNT_BEARER_CSD, NETACNT_WSP_CO,                
+            { 10, 0, 0, 172 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "165",                            
+            "wap", "wap", "wap", "wap" }
+    }
+};
+
+/*==================================================================================================
+    Following section is for Hongkong Market
+    { 0x0045400F, "CSL",          "CSL",     DUAL_BAND },
+    { 0x0045404F, "HK ORANGE",    "ORANGE",  DUAL_BAND },
+    { 0x0045406F, "HK SMARTONE",  "HKSMC",   DUAL_BAND },
+    { 0x0045410F, "HK NEW WORLD", "NWPCS",   DCS1800 },
+    { 0x0045412F, "HK PEOPLES",   "PEOPLES", DCS1800 },
+    { 0x0045416F, "HK SUNDAY",    "SUNDAY",  DCS1800 },
+==================================================================================================*/
+const CONFIG_PROFILE_GENERAL_DATA_T  config_general_table_hongkong = {
+    /* #of lang,  lang list, 
+     * city, frequency, #of entry, address of entry */
+    RM_LANG_TCHN,
+    {
+        CONFIG_MGR_FLAG_ON,            //  RM_LANG_ENG        = 0,    /* default value */
+        CONFIG_MGR_FLAG_ON,          //  RM_LANG_CHN        = 1,
+        CONFIG_MGR_FLAG_ON,          //  RM_LANG_TCHN       = 2,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_THAI       = 3,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_VIETNAMESE = 4,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_ARABIC     = 5,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_RUSSIAN    = 6,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_GERMAN     = 7,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_FRENCH     = 8,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_ITALIAN    = 9,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_PORTUGUESE = 10,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_SPANISH    = 11,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_POLISH     = 12,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_HUNGARIAN  = 13,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_DUTCH      = 14,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_SWEDISH    = 15,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_DANISH     = 16,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_FINNISH    = 17,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_NORWEGIAN  = 18,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_GREEK      = 19,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_TURKISH    = 20,
+    },
+    WORLDTIME_CITY_HONG_KONG, 50, 6,  &config_profile_netacnt_hongkong[0]
+};
+
+const CONFIG_PROFILE_NETACNT_DATA_T  config_profile_netacnt_hongkong[ 6 ] = {
+    /* 
+       MNC
+       Network Attribute - WAP, MMS and JAVA capability
+       URL - Net Account name, homepage title, homepage url,  MMSC URL,  JAVA URL
+       WAP, MMS, JAVA network - 
+             bearer type, connection type, 
+             IP addr, dns1, dns 2, 
+             port number, apn, 
+             dial string, 
+             gprs uid, gprs passwd, csd user id, csd passwd 
+    */
+    {
+        0x0000,   CONFIG_PROFILE_ATTRIBUTE_WAP | CONFIG_PROFILE_ATTRIBUTE_MMS, /* CSL */
+        {   "CSL", "CSL", "http://wap.hkcsl.com/1010",
+            "http://192.168.58.171:8002",         ""                              },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 192, 168, 59, 51 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "hkcsl",
+            "179111",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 192, 168, 59, 51 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "hkcsl",
+            "179111",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 192, 168, 59, 51 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "hkcsl",
+            "179111",                            
+            "", "", "", "" }
+    },
+    {
+        0x0040,   CONFIG_PROFILE_ATTRIBUTE_WAP | CONFIG_PROFILE_ATTRIBUTE_MMS, /* Orange */
+        {   "Orange", "Orange", "http://plus.orangehk.com",
+            "http://10.30.15.51:10021/mmsc",         ""                              },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 10, 30, 3, 151 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "web.orangehk.com",
+            "1751000",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 10, 30, 15, 53 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "mms.orangehk.com",
+            "179111",                            
+            "Orange", "1234", "Orange", "1234" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "179111",                            
+            "", "", "", "" }
+    },
+    {
+        0x0060,   CONFIG_PROFILE_ATTRIBUTE_WAP | CONFIG_PROFILE_ATTRIBUTE_MMS, /* SmarTone */
+        {   "SmarTone", "SmarTone", "http://wap.smartone.com.hk",
+            "http://mms.smartone.com.hk/server",         ""                              },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 10, 9, 9, 9 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "SmarTone",
+            "+85290100011",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 10, 9, 9, 9 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "smartone",
+            "+85290100011",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 10, 9, 9, 9 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "+85290100011",                            
+            "", "", "", "" }
+    },
+    {
+        0x0160,   CONFIG_PROFILE_ATTRIBUTE_WAP | CONFIG_PROFILE_ATTRIBUTE_MMS, /* Sunday */
+        {   "Sunday", "Sunday", "http://wap.sunday.com",
+            "http://mmsc.mms.sunday.com:8002",         ""                              },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 10, 131, 2, 1 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "sgprs",
+            "1766888",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 10, 131, 2, 1 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "smms",
+            "1766888",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 10, 131, 2, 1 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "1766888",                            
+            "", "", "", "" }
+    },
+    {
+        0x0120,   CONFIG_PROFILE_ATTRIBUTE_WAP | CONFIG_PROFILE_ATTRIBUTE_MMS, /* Peoples */
+        {   "Peoples", "Peoples", "http://color.peoples.com.hk",
+            "http://mms.peoples.com.hk/mms",         ""                              },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 172, 31, 31, 36 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "peoples.net",
+            "170170",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 172, 31, 31, 36 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "peoples.mms",
+            "170170",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 172, 31, 31, 36 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "170170",                            
+            "", "", "", "" }
+    },
+    {
+        0x0100,   CONFIG_PROFILE_ATTRIBUTE_WAP | CONFIG_PROFILE_ATTRIBUTE_MMS,  /* NewWorld */
+        {   "NewWorld", "NewWorld", "http://wap.nwmobility.com/main.wml",
+            "http://mmsc.nwmobility.com:8002",         ""                              },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 192, 168, 111, 1 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "wap",
+            "178078",                            
+            "wwm", "wwm", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 192, 168, 111, 1 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "MMS",
+            "178078",                            
+            "wwm", "wwm", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 192, 168, 111, 1 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "178078",                            
+            "", "", "", "" }
+    }
+};
+
+/*==================================================================================================
+    Following section is for Thai Market
+
+    { 0x0052001F,   "TH AIS GSM",  "TH AIS",   GSM900 },
+    { 0x0052010F,   "TH ORANGE",   "ORANGE",   DCS1800 },
+    { 0x0052015F,   "TH ACT 1900", "ACT-1900", PCS1900 },
+    { 0x0052018F,   "TH-DTAC",     "DTAC",     DCS1800 },
+    { 0x0052023F,   "TH-HELLO",    "HELLO",    DCS1800 },
+==================================================================================================*/
+const CONFIG_PROFILE_GENERAL_DATA_T  config_general_table_thai = {
+    /* #of lang,  lang list, 
+     * city, frequency, #of entry, address of entry */
+    RM_LANG_THAI,
+    {
+        CONFIG_MGR_FLAG_ON,            //  RM_LANG_ENG        = 0,    /* default value */
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_CHN        = 1,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_TCHN       = 2,
+        CONFIG_MGR_FLAG_ON,          //  RM_LANG_THAI       = 3,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_VIETNAMESE = 4,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_ARABIC     = 5,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_RUSSIAN    = 6,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_GERMAN     = 7,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_FRENCH     = 8,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_ITALIAN    = 9,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_PORTUGUESE = 10,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_SPANISH    = 11,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_POLISH     = 12,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_HUNGARIAN  = 13,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_DUTCH      = 14,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_SWEDISH    = 15,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_DANISH     = 16,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_FINNISH    = 17,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_NORWEGIAN  = 18,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_GREEK      = 19,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_TURKISH    = 20,
+    },
+      WORLDTIME_CITY_BANGKOK, 50, 3,  &config_profile_netacnt_thai[0]
+};
+
+const CONFIG_PROFILE_NETACNT_DATA_T  config_profile_netacnt_thai[ 3 ] = {
+    /* 
+       MNC
+       Network Attribute - WAP, MMS and JAVA capability
+       URL - Net Account name, homepage title, homepage url,  MMSC URL,  JAVA URL
+       WAP, MMS, JAVA network - 
+             bearer type, connection type, 
+             IP addr, dns1, dns 2, 
+             port number, apn, 
+             dial string, 
+             gprs uid, gprs passwd, csd user id, csd passwd 
+    */
+    {
+        0x0010,   CONFIG_PROFILE_ATTRIBUTE_WAP | CONFIG_PROFILE_ATTRIBUTE_MMS,  /* AIS */
+        {   "AIS", "Mobilelife", "http://wap.mobilelife.co.th",
+            "http://mmsc.mobilelife.co.th",         ""                              },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 203, 170, 229, 34 }, { 202, 183, 255, 20 }, { 202, 183, 255, 21 },
+            "9201",                        "wap",
+            "900934",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 203, 170, 229, 34 }, { 202, 183, 255, 20 }, { 202, 183, 255, 21 },
+            "9201",                        "multimedia",
+            "900934",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 203, 170, 229, 34 }, { 202, 183, 255, 20 }, { 202, 183, 255, 21 },
+            "9201",                        "",
+            "900934",                            
+            "", "", "", "" }
+    },
+    {
+        0x0180,   CONFIG_PROFILE_ATTRIBUTE_WAP | CONFIG_PROFILE_ATTRIBUTE_MMS,  /* DTAC */
+        {   "DTAC", "DTAC", "http://wap.djuice.co.th",
+            "http://mmsc.dtac.co.th:8002",         ""                              },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 203, 155, 200, 133 }, { 203, 155,33, 1 }, { 202, 44, 144, 33 },
+            "9201",                        "wap.djuice.co.th",
+            "+6616120012",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 203, 155, 200, 133 }, { 203, 155,33, 1 }, { 202, 44, 144, 33 },
+            "9201",                        "mms",
+            "+6616120012",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 203, 155, 200, 133 }, { 203, 155,33, 1 }, { 202, 44, 144, 33 },
+            "9201",                        "",
+            "+6616120012",                            
+            "", "", "", "" }
+    },
+    {
+        0x0100,   CONFIG_PROFILE_ATTRIBUTE_WAP, /* ORANGE */
+        {   "ORANGE", "Orange", "http://wap.orange.co.th",
+            "",         ""                              },
+        {   NETACNT_BEARER_CSD, NETACNT_WSP_CO,                
+            { 10, 4, 4, 4 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "+6691009500",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_CSD, NETACNT_WSP_CO,                
+            { 10, 4, 4, 4 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "+6691009500",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_CSD, NETACNT_WSP_CO,                
+            { 10, 4, 4, 4 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "+6691009500",                            
+            "", "", "", "" }
+    }
+};
+
+/*==================================================================================================
+    Following section is for Middel East Market
+    { 0x0042402F,  "UAE ETISALAT",   "ETSLT",   GSM900 },
+==================================================================================================*/
+const CONFIG_PROFILE_GENERAL_DATA_T  config_general_table_ME = {
+    /* #of lang,  lang list, 
+     * city, frequency, #of entry, address of entry */
+    RM_LANG_ENG,
+    {
+        CONFIG_MGR_FLAG_ON,            //  RM_LANG_ENG        = 0,    /* default value */
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_CHN        = 1,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_TCHN       = 2,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_THAI       = 3,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_VIETNAMESE = 4,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_ARABIC     = 5,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_RUSSIAN    = 6,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_GERMAN     = 7,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_FRENCH     = 8,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_ITALIAN    = 9,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_PORTUGUESE = 10,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_SPANISH    = 11,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_POLISH     = 12,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_HUNGARIAN  = 13,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_DUTCH      = 14,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_SWEDISH    = 15,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_DANISH     = 16,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_FINNISH    = 17,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_NORWEGIAN  = 18,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_GREEK      = 19,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_TURKISH    = 20,
+    },
+      WORLDTIME_CITY_TEHRAN, 50, 1,  &config_profile_netacnt_ME[0]
+};
+
+const CONFIG_PROFILE_NETACNT_DATA_T  config_profile_netacnt_ME[ 1 ] = {
+    /* 
+       MNC
+       Network Attribute - WAP, MMS and JAVA capability
+       URL - Net Account name, homepage title, homepage url,  MMSC URL,  JAVA URL
+       WAP, MMS, JAVA network - 
+             bearer type, connection type, 
+             IP addr, dns1, dns 2, 
+             port number, apn, 
+             dial string, 
+             gprs uid, gprs passwd, csd user id, csd passwd 
+    */
+    {
+        0x0020,   CONFIG_PROFILE_ATTRIBUTE_WAP | CONFIG_PROFILE_ATTRIBUTE_MMS, /* Etisalat */
+        {   "Etisalat", "etisalat", "http://www.ewap.co.ae",
+            "http://mms/servlets/mms",         ""                              },
+        {   NETACNT_BEARER_CSD, NETACNT_WSP_CO,                
+            { 10, 12, 0, 32 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "4004466",                            
+            "", "", "ewap", "ewap" },
+        {   NETACNT_BEARER_CSD, NETACNT_WSP_CO,                
+            { 10, 12, 0, 32 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "4004466",                            
+            "", "", "ewap", "ewap" },
+        {   NETACNT_BEARER_CSD, NETACNT_WSP_CO,                
+            { 10, 12, 0, 32 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "4004466",                            
+            "", "", "", "" }
+    }
+};
+
+/*==================================================================================================
+    Following section is for North Africa
+    { 0x0060201F,  "EGY MobiNiL",    "MobiNiL", GSM900 },
+    { 0x0060202F,  "EGY CLICK GSM",  "CLICK",   GSM900 },
+==================================================================================================*/
+const CONFIG_PROFILE_GENERAL_DATA_T  config_general_table_africa602 = {
+    /* #of lang,  lang list, 
+     * city, frequency, #of entry, address of entry */
+    RM_LANG_ENG,
+    {
+        CONFIG_MGR_FLAG_ON,            //  RM_LANG_ENG        = 0,    /* default value */
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_CHN        = 1,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_TCHN       = 2,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_THAI       = 3,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_VIETNAMESE = 4,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_ARABIC     = 5,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_RUSSIAN    = 6,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_GERMAN     = 7,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_FRENCH     = 8,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_ITALIAN    = 9,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_PORTUGUESE = 10,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_SPANISH    = 11,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_POLISH     = 12,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_HUNGARIAN  = 13,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_DUTCH      = 14,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_SWEDISH    = 15,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_DANISH     = 16,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_FINNISH    = 17,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_NORWEGIAN  = 18,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_GREEK      = 19,
+        CONFIG_MGR_FLAG_OFF,          //  RM_LANG_TURKISH    = 20,
+    },
+      WORLDTIME_CITY_TEHRAN, 50, 2,  &config_profile_netacnt_africa602[0]
+};
+
+const CONFIG_PROFILE_NETACNT_DATA_T  config_profile_netacnt_africa602[ 2 ] = {
+    /* 
+       MNC
+       Network Attribute - WAP, MMS and JAVA capability
+       URL - Net Account name, homepage title, homepage url,  MMSC URL,  JAVA URL
+       WAP, MMS, JAVA network - 
+             bearer type, connection type, 
+             IP addr, dns1, dns 2, 
+             port number, apn, 
+             dial string, 
+             gprs uid, gprs passwd, csd user id, csd passwd 
+    */
+    {
+        0x0010,   CONFIG_PROFILE_ATTRIBUTE_WAP | CONFIG_PROFILE_ATTRIBUTE_MMS, /* Mobinil */
+        {   "Mobinil", "Mobinil", "http://www.mobinillife.com",
+            "http://10.7.13.24:8002",         ""                              },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 10, 7, 13, 21 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "mobinil",
+            "",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 203, 170, 229, 034 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "mobinilmms",
+            "",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 203, 170, 229, 034 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "",                            
+            "", "", "", "" }
+    },
+    
+    {
+        0x0020,   CONFIG_PROFILE_ATTRIBUTE_WAP, /* Vodafone */
+        {   "Vodafone", "Vodafone", "",
+            "",         ""                              },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 163, 121, 178, 2 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "*9**991#",                            
+            "", "", "internet", "internet" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 163, 121, 178, 2 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "",                            
+            "", "", "", "" },
+        {   NETACNT_BEARER_GPRS, NETACNT_WSP_CO,                
+            { 163, 121, 178, 2 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 },
+            "9201",                        "",
+            "",                            
+            "", "", "", "" }
+    }
+};
+
+/*==================================================================================================
+    Following section is for default Market
+==================================================================================================*/
+
+
+#ifdef __cplusplus
+}
+#endif
+

@@ -1,0 +1,9 @@
+..\..\opus\adaptor\obj\pubaccs.obj
+..\..\opus\adaptor\obj\pubparam.obj
+..\..\opus\adaptor\obj\pubplmns.obj
+..\..\opus\adaptor\obj\gpio_support.obj
+..\..\opus\adaptor\obj\ft_customisation.obj
+..\..\opus\adaptor\obj\simpin_silent.obj
+..\..\main\config\obj\config_data.o
+..\..\main\config\obj\config_profile.o
+..\..\main\config\obj\config_profile_data.o

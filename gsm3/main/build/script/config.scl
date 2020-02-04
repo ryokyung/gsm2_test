@@ -1,0 +1,12 @@
+CONFIG1 0x18F0000 0x10000 {
+   CFG_DATA1 0x18F0000 {
+      config_data.o(+RO, +RW)
+   }
+   CFG_TABLES_1 +0 {
+     config_profile.o(+RO,+RW)
+   }
+   CFG_DATA_1 +0 {
+     config_profile_data.o(+RO)
+   }
+   
+}

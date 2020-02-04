@@ -1,0 +1,473 @@
+const unsigned char   config_data_version_header[16] = {
+'B', '1', '.', 'E', 'N', '.', '0', '1', 
+0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 
+};
+
+const unsigned short   config_data_product_id = PRODUCT_ID_HERMES;
+
+const unsigned char   config_data_model_name[32] = {
+'H', 'E', 'R', 'M', 'E', 'S', 
+0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 
+};
+
+const unsigned char   config_data_manufacturer[32] = {
+'N', 'E', 'W', 'G', 'E', 'N', 
+0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 
+};
+
+const unsigned char   config_byte_data[ CONFIG_ID_END - CONFIG_ID_BEGIN ] = {
+    CONFIG_DATA_BYTE_MAGIC,      //0 - dummy
+    CONFIG_MGR_FLAG_ON,          //1 - Master flag for Hermes
+    CONFIG_MGR_FLAG_OFF,         //2 - Master flag for Obelisk
+    CONFIG_MGR_FLAG_OFF,         //3 - Master flag for Rose
+    CONFIG_MGR_FLAG_OFF,         //4 - Master flag for Chanel
+    CONFIG_MGR_FLAG_OFF,         //5 - Master flag for Topaz
+    CONFIG_MGR_FLAG_OFF,         //6 - Master flag for Hermes Refresh1
+    CONFIG_MGR_FLAG_OFF,         //7 - Master flag for Hermes Refresh 2
+    CONFIG_MGR_FLAG_OFF,         //8
+    CONFIG_MGR_FLAG_OFF,         //9
+    CONFIG_MGR_FLAG_OFF,         //10
+    CONFIG_MGR_FLAG_OFF,         //11
+    CONFIG_MGR_FLAG_OFF,         //12
+    CONFIG_MGR_FLAG_OFF,         //13
+    CONFIG_MGR_FLAG_OFF,         //14
+    CONFIG_MGR_FLAG_OFF,         //15
+    CONFIG_MGR_FLAG_OFF,         //16
+    CONFIG_MGR_FLAG_OFF,         //17
+    CONFIG_MGR_FLAG_OFF,         //18
+    CONFIG_MGR_FLAG_OFF,         //19
+    CONFIG_MGR_FLAG_OFF,         //20
+    CONFIG_MGR_FLAG_OFF,         //21
+    CONFIG_MGR_FLAG_OFF,         //22
+    CONFIG_MGR_FLAG_OFF,         //23
+    CONFIG_MGR_FLAG_OFF,         //24
+    CONFIG_MGR_FLAG_OFF,         //25
+    CONFIG_MGR_FLAG_OFF,         //26
+    CONFIG_MGR_FLAG_OFF,         //27
+    CONFIG_MGR_FLAG_OFF,         //28
+    CONFIG_MGR_FLAG_ON,          //29 - Enable Engineering/Test Mode - This will display system error on screen
+    CONFIG_MGR_FLAG_ON,          //30 - ON: Send SS quary at power-up sequence, OFF: Doesn't send SS quary at power-up
+    CONFIG_MGR_FLAG_ON,          //31 - ON: Enable GPRS FTA test menu in testmode, OFF: Hide FTA test menu in testmode
+    CONFIG_MGR_FLAG_OFF,         //32 - ON: Does not read abbreviate dialed number in idle, OFF: Read phone number from SIM in idle
+    CONFIG_MGR_FLAG_OFF,         //33 - ON: Service lamp(status LED) will be blinking while in service, OFF: Service lamp will be off
+    CONFIG_MGR_FLAG_OFF,         //34 - ON: Upon SIM change, call history will be cleared at power-up, OFF: Call history will be preserved over power cycle
+    CONFIG_MGR_FLAG_OFF,         //35 - ON: Enable all games, OFF: only first two games are available
+    CONFIG_MGR_FLAG_ON,          //36 - ON: Contrast change with hex value, OFF: Contrast change with bar
+    CONFIG_MGR_FLAG_OFF,         //37 - ON: Disable EL light on for MT call, OFF: Enable EL light on for MT call
+    CONFIG_MGR_FLAG_OFF,         //38 - Disable POWERUP after an ALARM expiration
+    CONFIG_MGR_FLAG_OFF,         //39 - Enable Manual Triband Selection ( 900/1800 vs 1900 )
+    CONFIG_MGR_FLAG_OFF,         //40 - Enable Keypad backlight off after 5 sec
+    CONFIG_MGR_FLAG_OFF,         //41 - ON: Enable auto-answer
+    CONFIG_MGR_FLAG_OFF,         //42 - ON: Traditional Chinese HongKong OFF:Traditional Chinese Taiwan
+    CONFIG_MGR_FLAG_OFF,         //43 - ON: Smart Eng. As a default Eng. Edit    OFF: Normal Eng. As a default
+    CONFIG_MGR_FLAG_OFF,         //44 - ON: Bopomofo as a default Trad. Chinese  OFF: Pinyin as a default.
+    CONFIG_MGR_FLAG_OFF,         //45
+    CONFIG_MGR_FLAG_OFF,         //46
+    CONFIG_MGR_FLAG_OFF,         //47
+    CONFIG_MGR_FLAG_OFF,         //48
+    CONFIG_MGR_FLAG_OFF,         //49
+    CONFIG_MGR_FLAG_ON,          //50 - ON: Disable GPRS power-on attach, OFF: Enable GPRS power-on attach
+    CONFIG_MGR_FLAG_OFF,         //51 - ON: Disable GPRS icon display on attach confirm, OFF: Enable GPRS icon display on attach confirm
+    CONFIG_MGR_FLAG_ON,          //52 - ON: Enable GPRS auto/manual selection menu support. OFF: no setting menu 
+    CONFIG_MGR_FLAG_OFF,         //53 - ON: Support Java OFF: no support 
+    CONFIG_MGR_FLAG_OFF,         //54
+    CONFIG_MGR_FLAG_OFF,         //55
+    CONFIG_MGR_FLAG_OFF,         //56
+    CONFIG_MGR_FLAG_OFF,         //57
+    CONFIG_MGR_FLAG_OFF,         //58
+    CONFIG_MGR_FLAG_OFF,         //59
+    CONFIG_MGR_FLAG_OFF,         //60 - ON: there is no hard key for clear. OFF: there is a clear key
+    CONFIG_MGR_FLAG_OFF,         //61 - ON: there is no hard key for camera. OFF: there is a camera key
+    CONFIG_MGR_FLAG_OFF,         //62 - ON: there is no camera flash device
+    CONFIG_MGR_FLAG_OFF,         //63 - ON: there is no light sensor
+    CONFIG_MGR_FLAG_OFF,         //64 - ON: there is no 7-color LED
+    CONFIG_MGR_FLAG_OFF,         //65 - ON: there is O-LED
+    CONFIG_MGR_FLAG_OFF,         //66
+    CONFIG_MGR_FLAG_OFF,         //67
+    CONFIG_MGR_FLAG_ON,          //68 - ON:Enalbe GIF Decoder
+    CONFIG_MGR_FLAG_OFF,         //69
+    CONFIG_MGR_FLAG_OFF,         //70 - ON: Don't show auto-hyphen of dialed number.
+    CONFIG_MGR_FLAG_OFF,         //71 - ON: Turn On LCD upon key press when phone is locked state
+    CONFIG_MGR_FLAG_OFF,         //72
+    CONFIG_MGR_FLAG_OFF,         //73
+    CONFIG_MGR_FLAG_OFF,         //74
+    CONFIG_MGR_FLAG_OFF,         //75
+    CONFIG_MGR_FLAG_OFF,         //76
+    CONFIG_MGR_FLAG_OFF,         //77
+    CONFIG_MGR_FLAG_OFF,         //78
+    CONFIG_MGR_FLAG_OFF,         //79
+    CONFIG_MGR_FLAG_OFF,         //80
+    CONFIG_MGR_FLAG_OFF,         //81
+    CONFIG_MGR_FLAG_OFF,         //82
+    CONFIG_MGR_FLAG_OFF,         //83
+    CONFIG_MGR_FLAG_OFF,         //84
+    CONFIG_MGR_FLAG_OFF,         //85
+    CONFIG_MGR_FLAG_OFF,         //86
+    CONFIG_MGR_FLAG_OFF,         //87
+    CONFIG_MGR_FLAG_OFF,         //88
+    CONFIG_MGR_FLAG_OFF,         //89
+    CONFIG_MGR_FLAG_OFF,         //90
+    CONFIG_MGR_FLAG_OFF,         //91
+    CONFIG_MGR_FLAG_OFF,         //92
+    CONFIG_MGR_FLAG_OFF,         //93
+    CONFIG_MGR_FLAG_OFF,         //94
+    CONFIG_MGR_FLAG_OFF,         //95
+    CONFIG_MGR_FLAG_OFF,         //96
+    CONFIG_MGR_FLAG_OFF,         //97
+    CONFIG_MGR_FLAG_OFF,         //98
+    CONFIG_MGR_FLAG_OFF,         //99
+    CONFIG_MGR_FLAG_OFF,         //100
+    CONFIG_MGR_FLAG_OFF,         //101
+    CONFIG_MGR_FLAG_OFF,         //102
+    CONFIG_MGR_FLAG_OFF,         //103
+    CONFIG_MGR_FLAG_OFF,         //104
+    CONFIG_MGR_FLAG_OFF,         //105
+    CONFIG_MGR_FLAG_OFF,         //106
+    CONFIG_MGR_FLAG_OFF,         //107
+    CONFIG_MGR_FLAG_OFF,         //108
+    CONFIG_MGR_FLAG_OFF,         //109
+    CONFIG_MGR_FLAG_OFF,         //110
+    CONFIG_MGR_FLAG_OFF,         //111
+    CONFIG_MGR_FLAG_OFF,         //112
+    CONFIG_MGR_FLAG_OFF,         //113
+    CONFIG_MGR_FLAG_OFF,         //114
+    CONFIG_MGR_FLAG_OFF,         //115
+    CONFIG_MGR_FLAG_OFF,         //116
+    CONFIG_MGR_FLAG_OFF,         //117
+    CONFIG_MGR_FLAG_OFF,         //118
+    CONFIG_MGR_FLAG_OFF,         //119
+    CONFIG_MGR_FLAG_OFF,         //120
+    CONFIG_MGR_FLAG_OFF,         //121
+    CONFIG_MGR_FLAG_OFF,         //122
+    CONFIG_MGR_FLAG_OFF,         //123
+    CONFIG_MGR_FLAG_OFF,         //124
+    CONFIG_MGR_FLAG_OFF,         //125
+    CONFIG_MGR_FLAG_OFF,         //126
+    CONFIG_MGR_FLAG_OFF,         //127
+    CONFIG_MGR_FLAG_OFF,         //128
+    CONFIG_MGR_FLAG_OFF,         //129
+    CONFIG_MGR_FLAG_OFF,         //130
+    CONFIG_MGR_FLAG_OFF,         //131
+    CONFIG_MGR_FLAG_OFF,         //132
+    CONFIG_MGR_FLAG_OFF,         //133
+    CONFIG_MGR_FLAG_OFF,         //134
+    CONFIG_MGR_FLAG_OFF,         //135
+    CONFIG_MGR_FLAG_OFF,         //136
+    CONFIG_MGR_FLAG_OFF,         //137
+    CONFIG_MGR_FLAG_OFF,         //138
+    CONFIG_MGR_FLAG_OFF,         //139
+    CONFIG_MGR_FLAG_OFF,         //140
+    CONFIG_MGR_FLAG_OFF,         //141
+    CONFIG_MGR_FLAG_OFF,         //142
+    CONFIG_MGR_FLAG_OFF,         //143
+    CONFIG_MGR_FLAG_OFF,         //144
+    CONFIG_MGR_FLAG_OFF,         //145
+    CONFIG_MGR_FLAG_OFF,         //146
+    CONFIG_MGR_FLAG_OFF,         //147
+    CONFIG_MGR_FLAG_OFF,         //148
+    CONFIG_MGR_FLAG_OFF,         //149
+    1,         //150 - Number of Market Supported
+    CONFIG_MGR_FLAG_ON,          //151 - ON: China Market Support
+    CONFIG_MGR_FLAG_OFF,         //152 - ON: Middle East Market Support
+    CONFIG_MGR_FLAG_OFF,         //153 - ON: Thailand Market Support
+    CONFIG_MGR_FLAG_OFF,         //154 - ON: Hongkong Market Support
+    CONFIG_MGR_FLAG_OFF,         //155 - ON: Malaysia Market Support
+    CONFIG_MGR_FLAG_OFF,         //156 - ON: Singapore Market Support
+    CONFIG_MGR_FLAG_OFF,         //157 - ON: India Market Support
+    CONFIG_MGR_FLAG_OFF,         //158 - ON: Indonesia Market Support
+    CONFIG_MGR_FLAG_OFF,         //159 - ON: Taiwan Market Support
+    CONFIG_MGR_FLAG_OFF,         //160 - ON: Philippines Market Support
+    CONFIG_MGR_FLAG_OFF,         //161
+    CONFIG_MGR_FLAG_OFF,         //162
+    CONFIG_MGR_FLAG_OFF,         //163
+    CONFIG_MGR_FLAG_OFF,         //164
+    CONFIG_MGR_FLAG_OFF,         //165
+    CONFIG_MGR_FLAG_OFF,         //166
+    CONFIG_MGR_FLAG_OFF,         //167
+    CONFIG_MGR_FLAG_OFF,         //168
+    CONFIG_MGR_FLAG_OFF,         //169
+    CONFIG_MGR_FLAG_OFF,         //170
+    CONFIG_MGR_FLAG_OFF,         //171
+    CONFIG_MGR_FLAG_OFF,         //172
+    CONFIG_MGR_FLAG_OFF,         //173
+    CONFIG_MGR_FLAG_OFF,         //174
+    CONFIG_MGR_FLAG_OFF,         //175
+    CONFIG_MGR_FLAG_OFF,         //176
+    CONFIG_MGR_FLAG_OFF,         //177
+    CONFIG_MGR_FLAG_OFF,         //178
+    CONFIG_MGR_FLAG_OFF,         //179
+    CONFIG_MGR_FLAG_OFF,         //180
+    CONFIG_MGR_FLAG_OFF,         //181
+    CONFIG_MGR_FLAG_OFF,         //182
+    CONFIG_MGR_FLAG_OFF,         //183
+    CONFIG_MGR_FLAG_OFF,         //184
+    CONFIG_MGR_FLAG_OFF,         //185
+    CONFIG_MGR_FLAG_OFF,         //186
+    CONFIG_MGR_FLAG_OFF,         //187
+    CONFIG_MGR_FLAG_OFF,         //188
+    CONFIG_MGR_FLAG_OFF,         //189
+    CONFIG_MGR_FLAG_OFF,         //190
+    CONFIG_MGR_FLAG_OFF,         //191
+    CONFIG_MGR_FLAG_OFF,         //192
+    CONFIG_MGR_FLAG_OFF,         //193
+    CONFIG_MGR_FLAG_OFF,         //194
+    CONFIG_MGR_FLAG_OFF,         //195
+    CONFIG_MGR_FLAG_OFF,         //196
+    CONFIG_MGR_FLAG_OFF,         //197
+    CONFIG_MGR_FLAG_OFF,         //198
+    CONFIG_MGR_FLAG_OFF,         //199
+    1,         //200 - Default dis/connection tone melody volume level
+    50,         //201 - Anti-Banding Frequency
+    3,         //202 - Default camera shutter volume level
+    CONFIG_MGR_FLAG_OFF,         //203
+    CONFIG_MGR_FLAG_OFF,         //204
+    CONFIG_MGR_FLAG_OFF,         //205
+    CONFIG_MGR_FLAG_OFF,         //206
+    CONFIG_MGR_FLAG_OFF,         //207
+    CONFIG_MGR_FLAG_OFF,         //208
+    CONFIG_MGR_FLAG_OFF,         //209
+    CONFIG_MGR_FLAG_OFF,         //210
+    CONFIG_MGR_FLAG_OFF,         //211
+    CONFIG_MGR_FLAG_OFF,         //212
+    CONFIG_MGR_FLAG_OFF,         //213
+    CONFIG_MGR_FLAG_OFF,         //214
+    CONFIG_MGR_FLAG_OFF,         //215
+    CONFIG_MGR_FLAG_OFF,         //216
+    CONFIG_MGR_FLAG_OFF,         //217
+    CONFIG_MGR_FLAG_OFF,         //218
+    CONFIG_MGR_FLAG_OFF,         //219
+    CONFIG_MGR_FLAG_OFF,         //220
+    CONFIG_MGR_FLAG_OFF,         //221
+    CONFIG_MGR_FLAG_OFF,         //222
+    CONFIG_MGR_FLAG_OFF,         //223
+    CONFIG_MGR_FLAG_OFF,         //224
+    CONFIG_MGR_FLAG_OFF,         //225
+    CONFIG_MGR_FLAG_OFF,         //226
+    CONFIG_MGR_FLAG_OFF,         //227
+    CONFIG_MGR_FLAG_OFF,         //228
+    CONFIG_MGR_FLAG_OFF,         //229
+    CONFIG_MGR_FLAG_OFF,         //230
+    CONFIG_MGR_FLAG_OFF,         //231
+    CONFIG_MGR_FLAG_OFF,         //232
+    CONFIG_MGR_FLAG_OFF,         //233
+    CONFIG_MGR_FLAG_OFF,         //234 - ON: Turkish is supported
+    CONFIG_MGR_FLAG_OFF,         //235 - ON: Greek is supported
+    CONFIG_MGR_FLAG_OFF,         //236 - ON: Norwegian supported
+    CONFIG_MGR_FLAG_OFF,         //237 - ON: Finnish supported
+    CONFIG_MGR_FLAG_OFF,         //238 - ON: Danish supported
+    CONFIG_MGR_FLAG_OFF,         //239 - ON: Swedish supported
+    CONFIG_MGR_FLAG_OFF,         //240 - ON: Dutch supported
+    CONFIG_MGR_FLAG_OFF,         //241 - ON: Hungarian supported
+    CONFIG_MGR_FLAG_OFF,         //242 - ON: Polish supported
+    CONFIG_MGR_FLAG_OFF,         //243 - ON: Spanish supported
+    CONFIG_MGR_FLAG_OFF,         //244 - ON: Portuguese supported
+    CONFIG_MGR_FLAG_OFF,         //245 - ON: Italian supported
+    CONFIG_MGR_FLAG_OFF,         //246 - ON: French supported
+    CONFIG_MGR_FLAG_OFF,         //247 - ON: German supported
+    CONFIG_MGR_FLAG_OFF,         //248 - ON: Russian supported
+    CONFIG_MGR_FLAG_OFF,         //249 - ON: Arabic supported
+    CONFIG_MGR_FLAG_OFF,         //250 - ON: Vietnam supported
+    CONFIG_MGR_FLAG_OFF,         //251 - ON: Thai supported
+    CONFIG_MGR_FLAG_OFF,         //252 - ON: Traditional Chinese Supported
+    CONFIG_MGR_FLAG_ON,          //253 - ON: Chinese supported
+    CONFIG_MGR_FLAG_ON,          //254 - ON: English supported
+    2          //255 - Number of Language
+};
+
+const unsigned short   config_word_data[ CONFIG_ID_WORD_END - CONFIG_ID_WORD_BEGIN ] = {
+    CONFIG_DATA_WORD_MAGIC,      //0 - dummy
+    20,                          //1 - MA sound play polling timer interval
+    CONFIG_MGR_WORD_INVALID,     //2 - LCD VR Contrast setting register value
+    CONFIG_MGR_WORD_INVALID,     //3 - LCD DP Power control2 register value
+    4,                          //4 - SMS class type define when sending SMS class 0,1,2,3 = 0,1,2,3 : unknown = 4, default = 1 
+    11,                          //5 - Comparison digit size of phone book number searching
+    CONFIG_MGR_WORD_INVALID,     //6
+    CONFIG_MGR_WORD_INVALID,     //7
+    CONFIG_MGR_WORD_INVALID,     //8
+    CONFIG_MGR_WORD_INVALID,     //9
+    CONFIG_MGR_WORD_INVALID,     //10
+    CONFIG_MGR_WORD_INVALID,     //11
+    CONFIG_MGR_WORD_INVALID,     //12
+    CONFIG_MGR_WORD_INVALID,     //13
+    CONFIG_MGR_WORD_INVALID,     //14
+    CONFIG_MGR_WORD_INVALID,     //15
+    CONFIG_MGR_WORD_INVALID,     //16
+    CONFIG_MGR_WORD_INVALID,     //17
+    CONFIG_MGR_WORD_INVALID,     //18
+    CONFIG_MGR_WORD_INVALID,     //19
+    CONFIG_MGR_WORD_INVALID,     //20
+    CONFIG_MGR_WORD_INVALID,     //21
+    CONFIG_MGR_WORD_INVALID,     //22
+    CONFIG_MGR_WORD_INVALID,     //23
+    CONFIG_MGR_WORD_INVALID,     //24
+    CONFIG_MGR_WORD_INVALID,     //25
+    CONFIG_MGR_WORD_INVALID,     //26
+    CONFIG_MGR_WORD_INVALID,     //27
+    CONFIG_MGR_WORD_INVALID,     //28
+    CONFIG_MGR_WORD_INVALID,     //29
+    CONFIG_MGR_WORD_INVALID,     //30
+    CONFIG_MGR_WORD_INVALID,     //31
+    CONFIG_MGR_WORD_INVALID,     //32
+    CONFIG_MGR_WORD_INVALID,     //33
+    CONFIG_MGR_WORD_INVALID,     //34
+    CONFIG_MGR_WORD_INVALID,     //35
+    CONFIG_MGR_WORD_INVALID,     //36
+    CONFIG_MGR_WORD_INVALID,     //37
+    CONFIG_MGR_WORD_INVALID,     //38
+    CONFIG_MGR_WORD_INVALID,     //39
+    CONFIG_MGR_WORD_INVALID,     //40
+    CONFIG_MGR_WORD_INVALID,     //41
+    CONFIG_MGR_WORD_INVALID,     //42
+    CONFIG_MGR_WORD_INVALID,     //43
+    CONFIG_MGR_WORD_INVALID,     //44
+    CONFIG_MGR_WORD_INVALID,     //45
+    CONFIG_MGR_WORD_INVALID,     //46
+    CONFIG_MGR_WORD_INVALID,     //47
+    CONFIG_MGR_WORD_INVALID,     //48
+    CONFIG_MGR_WORD_INVALID,     //49
+    CONFIG_MGR_WORD_INVALID,     //50
+    CONFIG_MGR_WORD_INVALID,     //51
+    CONFIG_MGR_WORD_INVALID,     //52
+    CONFIG_MGR_WORD_INVALID,     //53
+    CONFIG_MGR_WORD_INVALID,     //54
+    CONFIG_MGR_WORD_INVALID,     //55
+    CONFIG_MGR_WORD_INVALID,     //56
+    CONFIG_MGR_WORD_INVALID,     //57
+    CONFIG_MGR_WORD_INVALID,     //58
+    CONFIG_MGR_WORD_INVALID,     //59
+    CONFIG_MGR_WORD_INVALID,     //60
+    CONFIG_MGR_WORD_INVALID,     //61
+    CONFIG_MGR_WORD_INVALID,     //62
+    CONFIG_MGR_WORD_INVALID,     //63
+    CONFIG_MGR_WORD_INVALID,     //64
+    CONFIG_MGR_WORD_INVALID,     //65
+    CONFIG_MGR_WORD_INVALID,     //66
+    CONFIG_MGR_WORD_INVALID,     //67
+    CONFIG_MGR_WORD_INVALID,     //68
+    CONFIG_MGR_WORD_INVALID,     //69
+    CONFIG_MGR_WORD_INVALID,     //70
+    CONFIG_MGR_WORD_INVALID,     //71
+    CONFIG_MGR_WORD_INVALID,     //72
+    CONFIG_MGR_WORD_INVALID,     //73
+    CONFIG_MGR_WORD_INVALID,     //74
+    CONFIG_MGR_WORD_INVALID,     //75
+    CONFIG_MGR_WORD_INVALID,     //76
+    CONFIG_MGR_WORD_INVALID,     //77
+    CONFIG_MGR_WORD_INVALID,     //78
+    CONFIG_MGR_WORD_INVALID,     //79
+    CONFIG_MGR_WORD_INVALID,     //80
+    CONFIG_MGR_WORD_INVALID,     //81
+    CONFIG_MGR_WORD_INVALID,     //82
+    CONFIG_MGR_WORD_INVALID,     //83
+    CONFIG_MGR_WORD_INVALID,     //84
+    CONFIG_MGR_WORD_INVALID,     //85
+    CONFIG_MGR_WORD_INVALID,     //86
+    CONFIG_MGR_WORD_INVALID,     //87
+    CONFIG_MGR_WORD_INVALID,     //88
+    CONFIG_MGR_WORD_INVALID,     //89
+    CONFIG_MGR_WORD_INVALID,     //90
+    CONFIG_MGR_WORD_INVALID,     //91
+    CONFIG_MGR_WORD_INVALID,     //92
+    CONFIG_MGR_WORD_INVALID,     //93
+    CONFIG_MGR_WORD_INVALID,     //94
+    CONFIG_MGR_WORD_INVALID,     //95
+    CONFIG_MGR_WORD_INVALID,     //96
+    CONFIG_MGR_WORD_INVALID,     //97
+    CONFIG_MGR_WORD_INVALID,     //98
+    CONFIG_MGR_WORD_INVALID,     //99
+    CONFIG_MGR_WORD_INVALID,     //100
+    CONFIG_MGR_WORD_INVALID,     //101
+    CONFIG_MGR_WORD_INVALID,     //102
+    CONFIG_MGR_WORD_INVALID,     //103
+    CONFIG_MGR_WORD_INVALID,     //104
+    CONFIG_MGR_WORD_INVALID,     //105
+    CONFIG_MGR_WORD_INVALID,     //106
+    CONFIG_MGR_WORD_INVALID,     //107
+    CONFIG_MGR_WORD_INVALID,     //108
+    CONFIG_MGR_WORD_INVALID,     //109
+    CONFIG_MGR_WORD_INVALID,     //110
+    CONFIG_MGR_WORD_INVALID,     //111
+    CONFIG_MGR_WORD_INVALID,     //112
+    CONFIG_MGR_WORD_INVALID,     //113
+    CONFIG_MGR_WORD_INVALID,     //114
+    CONFIG_MGR_WORD_INVALID,     //115
+    CONFIG_MGR_WORD_INVALID,     //116
+    CONFIG_MGR_WORD_INVALID,     //117
+    CONFIG_MGR_WORD_INVALID,     //118
+    CONFIG_MGR_WORD_INVALID,     //119
+    CONFIG_MGR_WORD_INVALID,     //120
+    CONFIG_MGR_WORD_INVALID,     //121
+    CONFIG_MGR_WORD_INVALID,     //122
+    CONFIG_MGR_WORD_INVALID,     //123
+    CONFIG_MGR_WORD_INVALID,     //124
+    CONFIG_MGR_WORD_INVALID,     //125
+    CONFIG_MGR_WORD_INVALID,     //126
+    CONFIG_MGR_WORD_INVALID      //127
+};
+
+const unsigned int   config_dword_data[ CONFIG_ID_DWORD_END - CONFIG_ID_DWORD_BEGIN ] = {
+    CONFIG_DATA_DWORD_MAGIC,     //0 - dummy
+    CONFIG_MGR_DWORD_INVALID,    //1
+    CONFIG_MGR_DWORD_INVALID,    //2
+    CONFIG_MGR_DWORD_INVALID,    //3
+    CONFIG_MGR_DWORD_INVALID,    //4
+    CONFIG_MGR_DWORD_INVALID,    //5
+    CONFIG_MGR_DWORD_INVALID,    //6
+    CONFIG_MGR_DWORD_INVALID,    //7
+    CONFIG_MGR_DWORD_INVALID,    //8
+    CONFIG_MGR_DWORD_INVALID,    //9
+    CONFIG_MGR_DWORD_INVALID,    //10
+    CONFIG_MGR_DWORD_INVALID,    //11
+    CONFIG_MGR_DWORD_INVALID,    //12
+    CONFIG_MGR_DWORD_INVALID,    //13
+    CONFIG_MGR_DWORD_INVALID,    //14
+    CONFIG_MGR_DWORD_INVALID,    //15
+    CONFIG_MGR_DWORD_INVALID,    //16
+    CONFIG_MGR_DWORD_INVALID,    //17
+    CONFIG_MGR_DWORD_INVALID,    //18
+    CONFIG_MGR_DWORD_INVALID,    //19
+    CONFIG_MGR_DWORD_INVALID,    //20
+    CONFIG_MGR_DWORD_INVALID,    //21
+    CONFIG_MGR_DWORD_INVALID,    //22
+    CONFIG_MGR_DWORD_INVALID,    //23
+    CONFIG_MGR_DWORD_INVALID,    //24
+    CONFIG_MGR_DWORD_INVALID,    //25
+    CONFIG_MGR_DWORD_INVALID,    //26
+    CONFIG_MGR_DWORD_INVALID,    //27
+    CONFIG_MGR_DWORD_INVALID,    //28
+    CONFIG_MGR_DWORD_INVALID,    //29
+    CONFIG_MGR_DWORD_INVALID,    //30
+    CONFIG_MGR_DWORD_INVALID,    //31
+    CONFIG_MGR_DWORD_INVALID,    //32
+    CONFIG_MGR_DWORD_INVALID,    //33
+    CONFIG_MGR_DWORD_INVALID,    //34
+    CONFIG_MGR_DWORD_INVALID,    //35
+    CONFIG_MGR_DWORD_INVALID,    //36
+    CONFIG_MGR_DWORD_INVALID,    //37
+    CONFIG_MGR_DWORD_INVALID,    //38
+    CONFIG_MGR_DWORD_INVALID,    //39
+    CONFIG_MGR_DWORD_INVALID,    //40
+    CONFIG_MGR_DWORD_INVALID,    //41
+    CONFIG_MGR_DWORD_INVALID,    //42
+    CONFIG_MGR_DWORD_INVALID,    //43
+    CONFIG_MGR_DWORD_INVALID,    //44
+    CONFIG_MGR_DWORD_INVALID,    //45
+    CONFIG_MGR_DWORD_INVALID,    //46
+    CONFIG_MGR_DWORD_INVALID,    //47
+    CONFIG_MGR_DWORD_INVALID,    //48
+    CONFIG_MGR_DWORD_INVALID,    //49
+    CONFIG_MGR_DWORD_INVALID,    //50
+    CONFIG_MGR_DWORD_INVALID,    //51
+    CONFIG_MGR_DWORD_INVALID,    //52
+    CONFIG_MGR_DWORD_INVALID,    //53
+    CONFIG_MGR_DWORD_INVALID,    //54
+    CONFIG_MGR_DWORD_INVALID,    //55
+    CONFIG_MGR_DWORD_INVALID,    //56
+    CONFIG_MGR_DWORD_INVALID,    //57
+    CONFIG_MGR_DWORD_INVALID,    //58
+    CONFIG_MGR_DWORD_INVALID,    //59
+    CONFIG_MGR_DWORD_INVALID,    //60
+    CONFIG_MGR_DWORD_INVALID,    //61
+    CONFIG_MGR_DWORD_INVALID,    //62
+    CONFIG_MGR_DWORD_INVALID     //63
+};

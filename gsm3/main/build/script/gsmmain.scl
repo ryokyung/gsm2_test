@@ -1,0 +1,156 @@
+; Hwbuffs.obj data areas added to IRAM 5/20/98.  SCR 981603
+
+; Main load region starting at 0x1000000
+LOAD 0x1000000 0x400000 {
+   CODE 0x1000000 {
+      ; m46_rt16.obj must be at the start of flash because it contains
+      ; data that must be at a certain location relative to the beginning
+      ; of flash
+
+      m46_rt16.obj(+RO)
+   } 
+   CODE1 +0 {
+      ; places these routines at the start of flash to allow short jumps to
+      ; IRAM when available
+      hflash.obj(+RO)
+      idevapi.obj(+RO)
+   }
+   CODE2 +0 {
+      * (+RO)               ; All read-only areas in CODE region
+   }
+
+   ; IRAM_SKYWORKS region starts at 0x20, which is the address just after the vectors
+    
+   ; Max length of IRAM_SKYWORKS is 0x1BDF bytes. Can't be specified in SDT
+   ; because linker doesn't accept it
+
+    IRAM_SKYWORKS 0x0020 0x1BDF      ; Max length of IRAM_SKYWORKS is 0x1BDF bytes.
+    {
+        delay_iram.obj(+RO)          ; microsecond delay routines
+        hwbuffs.obj(+RW,+ZI)    ; Layer 1 buffers
+        cstack.obj(+ZI)         ; IRAM task stacks
+        isvcrtxc.o(+ZI)              ; RTXC kernel stack
+        stacks.obj(INTSYSSTKS)       ; IRQ and SVC mode stacks
+    }
+
+   ; Max length of IRAM_CUSTOMER is 0x13F9 bytes. Can't be specified in SDT
+   ; because linker doesn't accept it
+
+    IRAM_CUSTOMER 0x1C00 0x13F9      ; Max length of IRAM_CUSTOMER is 0x13F9 bytes.
+   {
+   }
+
+   DATA 0x3000000
+   {
+      USARTBuf.obj(+ZI,+FIRST)     ; DMA buffers in the DMA region
+      SIMBuf.obj(+ZI)
+      NVMRamFn.obj (+RO)           ; Routines to Write/erase flash.
+      ;intflashb.obj (+RO)         ; Intel routines        ; places these routines at the start of flash to allow short jumps to
+      ; IRAM when available
+      shpflash.obj (+RO)           ; Sharp routines
+      dsinterrupt_ram.obj (+RO)    ; Routines to check for interrupts
+      dsinterrupt_veneer.obj (+RO) ; Interrupt veneer code for above
+      flashven.obj (+RO)           ; FlashAPI veneers
+   }
+
+   ; RAM for Reset Error logs support routines. Variables should not be reset at boot up
+   ERRLOGRAM +0 {
+     	ERRLogFn.obj (+RW,+ZI)       ; Routines to Write/Read Error Logs buffer.
+   }
+
+
+   ; do not clear this aera during code startup
+   DATA_NOINIT +0 {
+      hwdebug.obj (+RW,+ZI)		;  do not clear the cpu dsp command log buffer at startup
+      simpin_silent.obj (+RW,+ZI)		;  do not clear varialbe for silent reset
+   }
+
+   DATA1 +0
+   {
+      stacks.obj(EXTSYSSTKS,+LAST) ; Abort, Undef and supervisor mode stacks
+      * (+RW,+ZI)                  ; All remaining data areas in DATA region
+   }
+}
+
+RESOURCE1 0x1400000 0x4F0000 {
+   RES_DATA1 0x1400000 {
+     rm_resource.o(+RO)
+   }
+
+   RES_TABLES 0x1400010 {
+     rm_font.o(+RO,+RW)
+   }
+
+   RES_TABLES_1 +0 {
+     rm_bell.o(+RO,+RW)
+   }
+
+   RES_TABLES_2 +0 {
+     rm_melody.o(+RO,+RW)
+   }
+
+   RES_TABLES_3 +0 {
+     rm_sound.o(+RO,+RW)
+   }
+
+   RES_TABLES_4 +0 {
+     rm_icon.o(+RO,+RW)
+   }
+
+   RES_TABLES_5 +0 {
+     rm_bitmap.o(+RO,+RW)
+   }
+
+   RES_TABLES_6 +0 {
+     rm_animation.o(+RO,+RW)
+   }
+
+   RES_TABLE_7 +0 {
+     rm_string.o(+RO, +RW)
+   }
+   
+   RES_DATA_1 +0 {
+     rm_font_data.o(+RO,+RW)
+   }
+
+   RES_DATA_2 +0 {
+     rm_bitmap_data.o(+RO)
+   }
+
+   RES_DATA_3 +0 {
+     rm_animation_data.o(+RO)
+   }
+   RES_DATA_4 +0 {
+     rm_icon_data.o(+RO)
+   }
+
+   RES_DATA_5 +0 {
+     rm_sound_data.o(+RO)
+   }
+
+   RES_DATA_6 +0 {
+     rm_bell_data.o(+RO)
+   }
+
+   RES_DATA_7 +0 {
+     rm_melody_data.o(+RO)
+   }
+
+   RES_DATA_8 +0 {
+     rm_string_data.o(+RO)
+   }
+}
+
+CONFIG1 0x18F0000 0x10000 {
+   CFG_DATA1 0x18F0000 {
+      config_data.o(+RO, +RW)
+   }
+   CFG_TABLES_1 +0 {
+     config_profile.o(+RO,+RW)
+   }
+   CFG_DATA_1 +0 {
+     config_profile_data.o(+RO)
+   }
+   
+}
+
