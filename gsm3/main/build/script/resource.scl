@@ -1,0 +1,71 @@
+; Resource data load region starting at 0x13A0000
+RESOURCE1 0x1400000 0x4F0000 {
+   RES_DATA1 0x1400000 {
+     rm_resource.o(+RO)
+   }
+
+   RES_TABLES 0x1400010 {
+     rm_font.o(+RO,+RW)
+   }
+
+   RES_TABLES_1 +0 {
+     rm_bell.o(+RO,+RW)
+   }
+
+   RES_TABLES_2 +0 {
+     rm_melody.o(+RO,+RW)
+   }
+
+   RES_TABLES_3 +0 {
+     rm_sound.o(+RO,+RW)
+   }
+
+   RES_TABLES_4 +0 {
+     rm_icon.o(+RO,+RW)
+   }
+
+   RES_TABLES_5 +0 {
+     rm_bitmap.o(+RO,+RW)
+   }
+
+   RES_TABLES_6 +0 {
+     rm_animation.o(+RO,+RW)
+   }
+
+   RES_TABLE_7 +0 {
+     rm_string.o(+RO, +RW)
+   }
+   
+   RES_DATA_1 +0 {
+     rm_font_data.o(+RO)
+   }
+
+   RES_DATA_2 +0 {
+     rm_bitmap_data.o(+RO)
+   }
+
+   RES_DATA_3 +0 {
+     rm_animation_data.o(+RO)
+   }
+
+   RES_DATA_4 +0 {
+     rm_icon_data.o(+RO)
+   }
+
+   RES_DATA_5 +0 {
+     rm_sound_data.o(+RO)
+   }
+
+   RES_DATA_6 +0 {
+     rm_bell_data.o(+RO)
+   }
+
+   RES_DATA_7 +0 {
+     rm_melody_data.o(+RO)
+   }
+   RES_DATA_8 +0 {
+     rm_string_data.o(+RO,+RW)
+   }
+
+}
+
