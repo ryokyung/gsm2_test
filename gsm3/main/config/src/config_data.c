@@ -1,4 +1,3 @@
-/* yj changed*/
 #ifdef __cplusplus
 extern "C" {
 #endif
