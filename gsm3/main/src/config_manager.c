@@ -1,4 +1,5 @@
-#ifdef __cplusplus
+test
+__cplusplus
 extern "C" {
 #endif
 
