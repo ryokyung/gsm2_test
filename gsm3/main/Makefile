@@ -45,6 +45,7 @@
 GSM2_VOB    = ..
 MAIN_VOB    = $(GSM2_VOB)\main
 BUILD_VOB   = $(MAIN_VOB)\build
+YJ_PARAMETER = $(MAIN_VOB)
 
 !INCLUDE $(BUILD_VOB)\build.mak
 !INCLUDE .\objects.mak
